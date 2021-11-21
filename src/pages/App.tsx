@@ -8,8 +8,8 @@ import Web3ReactManager from '../components/Web3ReactManager'
 import DarkModeQueryParamReader from '../theme/DarkModeQueryParamReader'
 import AllOrders from './AllOrder'
 import PutOrder from './PutOrder'
-import MyBuyOrders from './MyOrder'
-import MySaleOrders from './MyOrder/index2'
+import Verify from './MyOrder'
+import Put from './MyOrder/index2'
 import { RedirectPathToSwapOnly } from './MyOrder/redirects'
 
 const AppWrapper = styled.div`
@@ -61,8 +61,9 @@ export default function App() {
             <Popups />
             <Web3ReactManager>
               <Switch>
-                <Route exact strict path="/myBuyOrders" component={MyBuyOrders} />
-                <Route exact strict path="/mySaleOrders" component={MySaleOrders} />
+                <Route exact strict path="/myBuyOrders" ><Verify withInfo={false}/> </Route>
+                <Route exact strict path="/myBuyOrders/:info" ><Verify withInfo={true}/> </Route>
+                <Route exact strict path="/mySaleOrders" component={Put} />
                 <Route exact strict path="/putOrder" component={PutOrder} />
                 <Route exact strict path="/allOrders" component={AllOrders} />
                 <Route component={RedirectPathToSwapOnly} />

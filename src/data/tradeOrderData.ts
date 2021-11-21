@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 import { useActiveWeb3React } from '../hooks'
 
-import { useJudgeContract, useTradeContract } from '../hooks/useContract'
+import { useJudgeContract, useKYCContract, useTradeContract } from '../hooks/useContract'
 import { useConditionOfOrders } from '../state/conditionOfOrders/hooks'
 
 import { Result, useSingleContractMultipleData } from '../state/multicall/hooks'
@@ -21,6 +21,38 @@ interface CallState {
   // true if the call was made and is synced, but the return data is invalid
   readonly error: boolean
 }
+
+export function useWaitVeriTradeData(): CallState[] | undefined {
+  const { account } = useActiveWeb3React()
+  const contract = useKYCContract(false)
+  const validator=account?.toString()
+  
+  const linenumber=10
+  const inputs = useMemo(() => [validator,linenumber],
+    [validator,linenumber]
+  )
+
+  const order = useSingleContractMultipleData(contract, 'query', [inputs])
+
+  return useMemo(() => (order ? order : undefined), order)
+}
+export function useLockedVeriTradeData(): CallState[] | undefined {
+  const { account } = useActiveWeb3React()
+  const contract = useKYCContract(false)
+  const sender=account?.toString()
+  
+  
+  const linenumber=10
+  const inputs = useMemo(() => [sender,linenumber],
+    [sender,linenumber]
+  )
+
+  const order = useSingleContractMultipleData(contract, 'queryMyOrder', [inputs])
+
+  return useMemo(() => (order ? order : undefined), order)
+}
+
+
 export function useTradeOrderData(): CallState[] | undefined {
   const [conditionOfOrders] = useConditionOfOrders()
 

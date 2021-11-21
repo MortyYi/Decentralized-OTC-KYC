@@ -81,10 +81,10 @@ export function SwapPoolTabs({ active }: { active: 'myOrders' | 'allOrders' }) {
   return (
     <Tabs style={{ marginBottom: '20px' }}>
       <StyledNavLink id={`swap-nav-link`} to={'/allOrders'} isActive={() => active === 'allOrders'}>
-        {t('Sale Orders')}
+        {t('发出验证')}
       </StyledNavLink>
       <StyledNavLink id={`pool-nav-link`} to={'/myBuyOrders'} isActive={() => active === 'myOrders'}>
-        {t('My Orders')}
+        {t('验证')}
       </StyledNavLink>
     </Tabs>
   )
@@ -94,10 +94,10 @@ export function MySaleBuyOrdersTabs({ active }: { active: 'myBuyOrders' | 'mySal
   return (
     <Tabs style={{ marginBottom: '10px' }}>
       <StyledNavLink2 id={`pool-nav-link`} to={'/myBuyOrders'} isActive={() => active === 'myBuyOrders'}>
-        {t('My Buy Orders')}
+        {t('验证')}
       </StyledNavLink2>
       <StyledNavLink2 id={`swap-nav-link`} to={'/mySaleOrders'} isActive={() => active === 'mySaleOrders'}>
-        {t('My Sale Orders')}
+        {t('请求验证码')}
       </StyledNavLink2>
     </Tabs>
   )

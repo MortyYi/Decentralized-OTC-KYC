@@ -12,7 +12,7 @@ import { calculateGasMargin } from '../utils'
 import { useTokenContract } from './useContract'
 import { useActiveWeb3React } from './index'
 import { Version } from './useToggledVersion'
-import { useBuyerDisputeBlockNumberData, useDisputeFeeData, useDisputeResultData, useMyBuyTradeOrderData, useMySaleTradeOrderData, useSellerDisputeBlockNumberData, useTradeOrderData } from '../data/tradeOrderData'
+import { useBuyerDisputeBlockNumberData, useDisputeFeeData, useDisputeResultData, useLockedVeriTradeData, useMyBuyTradeOrderData, useMySaleTradeOrderData, useSellerDisputeBlockNumberData, useTradeOrderData, useWaitVeriTradeData } from '../data/tradeOrderData'
 import { TRADE_ADDRESS } from '../constants/abis/trade'
 
 export enum ApprovalState {
@@ -20,6 +20,30 @@ export enum ApprovalState {
   NOT_APPROVED,
   PENDING,
   APPROVED
+}
+
+export function useGetWaitVeriOrderDataCallBack():any[]|undefined{
+  const order=useWaitVeriTradeData()
+
+  let r:any|undefined=undefined
+  if(order){
+    if(order[0].result)
+       r=order[0].result[0]
+  }
+ 
+  return r
+}
+
+export function useGetLockedVeriOrderDataCallBack():any[]|undefined{
+  const order=useLockedVeriTradeData()
+
+  let r:any|undefined=undefined
+  if(order){
+    if(order[0].result)
+       r=order[0].result[0]
+  }
+  
+  return r
 }
 
 export function useGetOrderDataCallBack():any[]|undefined{

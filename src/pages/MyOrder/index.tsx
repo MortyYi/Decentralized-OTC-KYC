@@ -1,10 +1,8 @@
 import React from 'react'
-import { ButtonLight, ButtonPrimary } from '../../components/Button'
+import { ButtonLight } from '../../components/Button'
 import { MySaleBuyOrdersTabs, SwapPoolTabs } from '../../components/NavigationTabs'
 import AppBody from '../AppBody'
-import { Link } from 'react-router-dom'
-import { Text } from 'rebass'
-import MyBuyOrder from './myBuyOrder'
+import {VerifyWithInfo, VerifyWithoutInfo} from './verify'
 import styled from 'styled-components'
 import { useActiveWeb3React } from '../../hooks'
 import { useWalletModalToggle } from '../../state/application/hooks'
@@ -19,21 +17,17 @@ export const Button = styled.button`
   cursor:pointer;
 `
 
-export default function MyBuyOrders() {
+export default function Verify(props:any) {
     const { account } = useActiveWeb3React()
     const toggleWalletModal = useWalletModalToggle()
     const { t } = useTranslation()
     return (
         <AppBody>
             <SwapPoolTabs active={'myOrders'} />
-            <ButtonPrimary id="join-pool-button" as={Link} style={{ padding: 16 }} to="/putOrder">
-                <Text fontWeight={500} fontSize={20}>
-                    {t('Publish')}
-                </Text>
-            </ButtonPrimary>
+        
             <MySaleBuyOrdersTabs  active={'myBuyOrders'}/>
             {!account ? <ButtonLight onClick={toggleWalletModal}>{t('Connect Wallet')}</ButtonLight>
-                : <MyBuyOrder />
+                :(props.withInfo? <VerifyWithInfo/>: <VerifyWithoutInfo/>)
             }
 
         </AppBody>

@@ -14,6 +14,7 @@ import { V1_EXCHANGE_ABI, V1_FACTORY_ABI, V1_FACTORY_ADDRESSES } from '../consta
 import { getContract } from '../utils'
 import { useActiveWeb3React } from './index'
 import { TRADE_ABI, TRADE_ADDRESS } from '../constants/abis/trade'
+import { KYC_ABI, KYC_ADDRESS } from '../constants/abis/kyc'
 import { JUDGE_ABI } from '../constants/abis/judge'
 
 // returns null on errors
@@ -51,6 +52,11 @@ export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: b
 export function useTradeContract( withSignerIfPossible?: boolean): Contract | null {
   return useContract(TRADE_ADDRESS, TRADE_ABI, withSignerIfPossible)
 }
+//使用kyc合同
+export function useKYCContract( withSignerIfPossible?: boolean): Contract | null {
+  return useContract(KYC_ADDRESS, KYC_ABI, withSignerIfPossible)
+}
+
 
 export function useJudgeContract(judge_address:string, withSignerIfPossible?: boolean): Contract | null {
   return useContract(judge_address, JUDGE_ABI, withSignerIfPossible)
